@@ -1,0 +1,45 @@
+*, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --colour-1: #576F72;
+    --colour-2: #7D9D9C;
+    --colour-3: #E4DCCF;
+    --colour-4: #F0EBE3;
+}
+
+header {
+    display: flex;
+    height: 100px;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    background-color: var(--colour-1);
+
+}
+
+body {
+    background-color: var(--colour-3);
+}
+
+.board {
+    display: grid;
+    max-width: 600px;
+    height: 600px;
+    grid-template: 1fr 1fr 1fr / 1fr 1fr 1fr;
+    border: 2px solid;
+    margin: 0 auto;
+}
+
+.cell {
+    border: 1px solid;
+    border-radius: 0;
+    background-color: var(--colour-4);
+}
+
+.cell:hover {
+    background-color: var(--colour-2);
+}
