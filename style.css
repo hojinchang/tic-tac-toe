@@ -13,22 +13,28 @@
 
 header {
     display: flex;
-    height: 100px;
     justify-content: center;
     align-items: center;
-    padding: 20px;
     background-color: var(--colour-1);
-
+    font-size: 3rem;
+    padding: 20px;
 }
 
 body {
     background-color: var(--colour-3);
 }
 
+
+.game-message {
+    text-align: center;
+    font-size: 2.5rem;
+    padding: 35px;
+}
+
 .board {
     display: grid;
-    max-width: 600px;
-    height: 600px;
+    max-width: 500px;
+    height: 500px;
     grid-template: 1fr 1fr 1fr / 1fr 1fr 1fr;
     border: 2px solid;
     margin: 0 auto;
