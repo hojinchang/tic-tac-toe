@@ -2,6 +2,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: 'Manrope', sans-serif;
 }
 
 :root {
@@ -9,6 +10,7 @@
     --colour-2: #7D9D9C;
     --colour-3: #E4DCCF;
     --colour-4: #F0EBE3;
+    --box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
 }
 
 header {
@@ -16,6 +18,9 @@ header {
     justify-content: center;
     align-items: center;
     background-color: var(--colour-1);
+    box-shadow: var(--box-shadow);
+    position: relative;
+    z-index: 10;
     font-size: 3rem;
     padding: 20px;
 }
@@ -35,7 +40,7 @@ body {
     display: grid;
     max-width: 500px;
     height: 500px;
-    grid-template: 1fr 1fr 1fr / 1fr 1fr 1fr;
+    grid-template: repeat(3, 1fr) / repeat(3, 1fr);
     border: 2px solid;
     margin: 0 auto;
 }
@@ -47,5 +52,5 @@ body {
 }
 
 .cell:hover {
-    background-color: var(--colour-2);
+    background-color: #7D9D9C80;
 }
