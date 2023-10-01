@@ -28,6 +28,9 @@ header {
 }
 
 body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
     background-color: var(--colour-3);
 }
 
@@ -79,4 +82,29 @@ body {
 
 .reset:active {
     transform: var(--button-click-animation);
+}
+
+footer {
+    position: relative;
+    bottom: 0px;
+    width: 100%;
+    height: 30px;
+    margin-top: auto;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background-color: var(--colour-1);
+    color: var(--colour-4);
+}
+
+a {
+    text-decoration: none;
+    font-weight: bold;
+    color: var(--colour-4);
+}
+
+a:hover {
+    text-decoration: underline;
 }
