@@ -11,6 +11,7 @@
     --colour-3: #E4DCCF;
     --colour-4: #F0EBE3;
     --box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
+    --button-click-animation: translateY(2px);
 }
 
 header {
@@ -23,12 +24,12 @@ header {
     z-index: 10;
     font-size: 3rem;
     padding: 20px;
+    color: var(--colour-4);
 }
 
 body {
     background-color: var(--colour-3);
 }
-
 
 .game-message {
     text-align: center;
@@ -56,4 +57,26 @@ body {
 
 .cell:hover {
     background-color: #7D9D9C80;
+}
+
+.reset-button {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.reset {
+    font-size: 2rem;
+    padding: 5px 50px;
+    margin: 0 auto;
+    border: 0;
+    border-radius: 5px;
+    background-color: var(--colour-1);
+    color: var(--colour-4);
+    box-shadow: var(--box-shadow);
+}
+
+.reset:active {
+    transform: var(--button-click-animation);
 }
