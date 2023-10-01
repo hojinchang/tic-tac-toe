@@ -3,6 +3,7 @@
     padding: 0;
     box-sizing: border-box;
     font-family: 'Manrope', sans-serif;
+    color: var(--font-colour);
 }
 
 :root {
@@ -11,6 +12,7 @@
     --colour-3: #E4DCCF;
     --colour-4: #F0EBE3;
     --box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
+    --font-colour: rgba(0, 0, 0, 0.6);
 }
 
 header {
@@ -33,6 +35,7 @@ body {
 .game-message {
     text-align: center;
     font-size: 2.5rem;
+    font-weight: bold;
     padding: 35px;
 }
 

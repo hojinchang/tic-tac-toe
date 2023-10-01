@@ -49,7 +49,6 @@ const displayController = (() => {
 const gameController = (() => {
     const players = [Player("X"), Player("O")];
     let activePlayer = players[0]
-    // let win = false;
     let gameFinished = false;
     let round = 1;
 
