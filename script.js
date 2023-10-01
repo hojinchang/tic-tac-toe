@@ -36,6 +36,8 @@ const displayController = (() => {
 
     gridCells.forEach(cell => {
         cell.addEventListener("click", (e) => {
+            if (gameController.getGameStatus()) return;
+
             gameController.playRound(e.target.dataset.index);
             updateGameBoard();
         }) 
@@ -46,14 +48,16 @@ const displayController = (() => {
 
 const gameController = (() => {
     const players = [Player("X"), Player("O")];
-    let winner = false;
-
+    let gameFinished = false;
     let activePlayer = players[0]
+
     const switchActivePlayer = () => {
         activePlayer = activePlayer === players[0] ? players[1] : players[0];
     }
 
     const getActivePlayer = () => activePlayer;
+
+    const getGameStatus = () => gameFinished;
 
     const validateMove = (cellIdx) => {
         let validMove;
@@ -95,8 +99,9 @@ const gameController = (() => {
 
             let win = checkWin();
             if (win) {
-                winner = activePlayer;
-                console.log("winner!", winner)
+                gameFinished = true;
+                console.log("winner!", activePlayer.getSign())
+                displayController.setRoundMessage(`Player ${activePlayer.getSign()} Won!`)
             } else {
                 switchActivePlayer();
                 displayController.setRoundMessage(`Player ${activePlayer.getSign()}'s Turn`)
@@ -104,5 +109,5 @@ const gameController = (() => {
         }
     }
 
-    return {playRound};
+    return {playRound, getGameStatus};
 })();
