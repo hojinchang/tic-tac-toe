@@ -24,8 +24,8 @@ const displayController = (() => {
     const gameMessage = document.querySelector(".game-message");
     const gridCells = document.querySelectorAll(".cell");
 
-    const setGameMessage = (message) => {
-        gameMessage.textContent = message;
+    const setRoundMessage = (activePlayer) => {
+        gameMessage.textContent = `Player ${activePlayer.getSign()}'s Turn`;
     }
 
     const updateGameBoard = () => {
@@ -41,7 +41,7 @@ const displayController = (() => {
         }) 
     });
 
-
+    return {setRoundMessage}
 })();
 
 const gameController = (() => {
@@ -91,6 +91,7 @@ const gameController = (() => {
 
     const playRound = (cellIdx) => {
         activePlayer = getActivePlayer();
+        
         let validMove = validateMove(cellIdx);
         if (validMove) {
             gameBoard.setCell(cellIdx, activePlayer.getSign());
@@ -103,6 +104,7 @@ const gameController = (() => {
                 console.log("winner!", winner)
             } else {
                 switchActivePlayer();
+                displayController.setRoundMessage(activePlayer)
             }
         }
     }
