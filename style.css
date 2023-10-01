@@ -46,6 +46,7 @@ body {
 }
 
 .cell {
+    font-size: 6rem;
     border: 1px solid;
     border-radius: 0;
     background-color: var(--colour-4);

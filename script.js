@@ -7,14 +7,9 @@ const Player = (sign) => {
 }
 
 const gameBoard = (function() {
-    // const board = ["", "", "", "", "", "", "", "", ""];
+    const board = ["", "", "", "", "", "", "", "", ""];
 
-    // let board = ["X", "", "", "", "", "", "", "", ""];
-    // let board = ["X", "O", "X", "O", "O", "X", "O", "X", "X"];
-    let board = ["X", "O", "X", "X", "O", "O", "O", "X", "X"];
-    // let board = ["X", "O", "O", "X", "X", "", "X", "", "O"];
-
-
+    const getBoard = () => board;
 
     const getCell = (cellIdx) => board[cellIdx];
 
@@ -22,10 +17,34 @@ const gameBoard = (function() {
         board[cellIdx] = sign;
     }
 
-    return {getCell, setCell};
+    return {getBoard, getCell, setCell};
 })();
 
-const gameController = (function() {
+const displayController = (() => {
+    const gameMessage = document.querySelector(".game-message");
+    const gridCells = document.querySelectorAll(".cell");
+
+    const setGameMessage = (message) => {
+        gameMessage.textContent = message;
+    }
+
+    const updateGameBoard = () => {
+        for (let i = 0; i < gridCells.length; i++) {
+            gridCells[i].textContent = gameBoard.getCell(i);
+        }
+    }
+
+    gridCells.forEach(cell => {
+        cell.addEventListener("click", (e) => {
+            gameController.playRound(e.target.dataset.index);
+            updateGameBoard();
+        }) 
+    });
+
+
+})();
+
+const gameController = (() => {
     const players = [Player("X"), Player("O")];
     let winner = false;
 
@@ -53,7 +72,6 @@ const gameController = (function() {
         for (let condition of winConditions) {
             let signs = condition.map(cellIdx => gameBoard.getCell(cellIdx));
             if (!signs.includes("")) allEqual = signs.every(sign => sign === signs[0]);
-            console.log(signs, allEqual)
 
             if (allEqual) break;
         }
@@ -64,14 +82,19 @@ const gameController = (function() {
     const playRound = (cellIdx) => {
         activePlayer = getActivePlayer();
         gameBoard.setCell(cellIdx, activePlayer.getSign());
-        winner = checkWin();
 
-        console.log("winner?", winner)
+        console.log("active player: ", activePlayer);
+        console.log(gameBoard.getBoard());
 
-        switchActivePlayer();
+        let win = checkWin();
+
+        if (win) {
+            winner = activePlayer;
+            console.log("winner!", winner)
+        } else {
+            switchActivePlayer();
+        }
     }
 
     return {playRound};
 })();
-
-gameController.playRound();
