@@ -24,8 +24,8 @@ const displayController = (() => {
     const gameMessage = document.querySelector(".game-message");
     const gridCells = document.querySelectorAll(".cell");
 
-    const setRoundMessage = (activePlayer) => {
-        gameMessage.textContent = `Player ${activePlayer.getSign()}'s Turn`;
+    const setRoundMessage = (message) => {
+        gameMessage.textContent = message;
     }
 
     const updateGameBoard = () => {
@@ -49,7 +49,6 @@ const gameController = (() => {
     let winner = false;
 
     let activePlayer = players[0]
-
     const switchActivePlayer = () => {
         activePlayer = activePlayer === players[0] ? players[1] : players[0];
     }
@@ -104,7 +103,7 @@ const gameController = (() => {
                 console.log("winner!", winner)
             } else {
                 switchActivePlayer();
-                displayController.setRoundMessage(activePlayer)
+                displayController.setRoundMessage(`Player ${activePlayer.getSign()}'s Turn`)
             }
         }
     }
