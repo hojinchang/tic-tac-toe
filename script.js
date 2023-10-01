@@ -33,7 +33,7 @@ const displayController = (() => {
         gameMessage.textContent = message;
     }
 
-    const updateGameBoard = () => {
+    const _updateGameBoard = () => {
         for (let i = 0; i < gridCells.length; i++) {
             gridCells[i].textContent = gameBoard.getCell(i);
         }
@@ -42,7 +42,7 @@ const displayController = (() => {
     resetButton.addEventListener("click", () => {
         gameBoard.reset();
         gameController.reset();
-        updateGameBoard();
+        _updateGameBoard();
         setRoundMessage(`Player X's Turn`);
     });
 
@@ -51,7 +51,7 @@ const displayController = (() => {
             if (gameController.getGameStatus()) return;
 
             gameController.playRound(e.target.dataset.index);
-            updateGameBoard();
+            _updateGameBoard();
         }) 
     });
 
@@ -64,15 +64,15 @@ const gameController = (() => {
     let gameFinished = false;
     let round = 1;
 
-    const switchActivePlayer = () => {
+    const _switchActivePlayer = () => {
         activePlayer = activePlayer === players[0] ? players[1] : players[0];
     }
 
-    const getActivePlayer = () => activePlayer;
+    const _getActivePlayer = () => activePlayer;
 
     const getGameStatus = () => gameFinished;
 
-    const validateMove = (cellIdx) => {
+    const _validateMove = (cellIdx) => {
         let validMove;
         gameBoard.getCell(cellIdx) === "" ? validMove = true : validMove = false;
         return validMove;
@@ -84,7 +84,7 @@ const gameController = (() => {
         gameFinished = false;
     }
 
-    const checkWin = () => {
+    const _checkWin = () => {
         const winConditions = [
             [0, 1, 2],
             [3, 4, 5],
@@ -108,16 +108,16 @@ const gameController = (() => {
     }
 
     const playRound = (cellIdx) => {
-        activePlayer = getActivePlayer();
+        activePlayer = _getActivePlayer();
         
-        if (validateMove(cellIdx)) {
+        if (_validateMove(cellIdx)) {
             gameBoard.setCell(cellIdx, activePlayer.getSign());
 
-            if (round >= 5) gameFinished = checkWin();   // Minimum amount of rounds is 5. Only check for win condition after 5 rounds.
+            if (round >= 5) gameFinished = _checkWin();   // Minimum amount of rounds is 5. Only check for win condition after 5 rounds.
             if (gameFinished) {
                 displayController.setRoundMessage(`Player ${activePlayer.getSign()} Won!`)
             } else {
-                switchActivePlayer();
+                _switchActivePlayer();
                 displayController.setRoundMessage(`Player ${activePlayer.getSign()}'s Turn`)
             }
 
