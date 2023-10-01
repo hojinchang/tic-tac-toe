@@ -56,6 +56,16 @@ const gameController = (() => {
 
     const getActivePlayer = () => activePlayer;
 
+    const validateMove = (cellIdx) => {
+        let validMove;
+        if (gameBoard.getCell(cellIdx) === "") {
+            validMove = true;
+        } else {
+            validMove = false;
+        }
+        return validMove;
+    }
+
     const checkWin = () => {
         const winConditions = [
             [0, 1, 2],
@@ -81,18 +91,19 @@ const gameController = (() => {
 
     const playRound = (cellIdx) => {
         activePlayer = getActivePlayer();
-        gameBoard.setCell(cellIdx, activePlayer.getSign());
+        let validMove = validateMove(cellIdx);
+        if (validMove) {
+            gameBoard.setCell(cellIdx, activePlayer.getSign());
+            console.log("active player: ", activePlayer.getSign());
+            console.log(gameBoard.getBoard());
 
-        console.log("active player: ", activePlayer);
-        console.log(gameBoard.getBoard());
-
-        let win = checkWin();
-
-        if (win) {
-            winner = activePlayer;
-            console.log("winner!", winner)
-        } else {
-            switchActivePlayer();
+            let win = checkWin();
+            if (win) {
+                winner = activePlayer;
+                console.log("winner!", winner)
+            } else {
+                switchActivePlayer();
+            }
         }
     }
 
