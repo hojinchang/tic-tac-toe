@@ -9,20 +9,25 @@ const Player = (sign) => {
 const gameBoard = (function() {
     const board = ["", "", "", "", "", "", "", "", ""];
 
-    const getBoard = () => board;
-
     const getCell = (cellIdx) => board[cellIdx];
 
     const setCell = (cellIdx, sign) => {
         board[cellIdx] = sign;
     }
 
-    return {getBoard, getCell, setCell};
+    const reset = () => {
+        for (let i = 0; i < board.length; i++) {
+            board[i] = "";
+        }
+    }
+
+    return {getCell, setCell, reset};
 })();
 
 const displayController = (() => {
     const gameMessage = document.querySelector(".game-message");
     const gridCells = document.querySelectorAll(".cell");
+    const resetButton = document.querySelector(".reset");
 
     const setRoundMessage = (message) => {
         gameMessage.textContent = message;
@@ -33,6 +38,13 @@ const displayController = (() => {
             gridCells[i].textContent = gameBoard.getCell(i);
         }
     }
+
+    resetButton.addEventListener("click", () => {
+        gameBoard.reset();
+        gameController.reset();
+        updateGameBoard();
+        setRoundMessage(`Player X's Turn`);
+    });
 
     gridCells.forEach(cell => {
         cell.addEventListener("click", (e) => {
@@ -66,6 +78,12 @@ const gameController = (() => {
         return validMove;
     }
 
+    const reset = () => {
+        activePlayer = players[0]
+        round = 1
+        gameFinished = false;
+    }
+
     const checkWin = () => {
         const winConditions = [
             [0, 1, 2],
@@ -94,12 +112,9 @@ const gameController = (() => {
         
         if (validateMove(cellIdx)) {
             gameBoard.setCell(cellIdx, activePlayer.getSign());
-            console.log("active player: ", activePlayer.getSign());
-            console.log(gameBoard.getBoard());
 
             if (round >= 5) gameFinished = checkWin();   // Minimum amount of rounds is 5. Only check for win condition after 5 rounds.
             if (gameFinished) {
-                console.log("winner!", activePlayer.getSign())
                 displayController.setRoundMessage(`Player ${activePlayer.getSign()} Won!`)
             } else {
                 switchActivePlayer();
@@ -115,5 +130,5 @@ const gameController = (() => {
         }
     }
 
-    return {playRound, getGameStatus};
+    return {playRound, getGameStatus, reset};
 })();
