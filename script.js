@@ -48,8 +48,10 @@ const displayController = (() => {
 
 const gameController = (() => {
     const players = [Player("X"), Player("O")];
-    let gameFinished = false;
     let activePlayer = players[0]
+    // let win = false;
+    let gameFinished = false;
+    let round = 1;
 
     const switchActivePlayer = () => {
         activePlayer = activePlayer === players[0] ? players[1] : players[0];
@@ -91,21 +93,26 @@ const gameController = (() => {
     const playRound = (cellIdx) => {
         activePlayer = getActivePlayer();
         
-        let validMove = validateMove(cellIdx);
-        if (validMove) {
+        if (validateMove(cellIdx)) {
             gameBoard.setCell(cellIdx, activePlayer.getSign());
             console.log("active player: ", activePlayer.getSign());
             console.log(gameBoard.getBoard());
 
-            let win = checkWin();
-            if (win) {
-                gameFinished = true;
+            if (round >= 5) gameFinished = checkWin();   // Minimum amount of rounds is 5. Only check for win condition after 5 rounds.
+            if (gameFinished) {
                 console.log("winner!", activePlayer.getSign())
                 displayController.setRoundMessage(`Player ${activePlayer.getSign()} Won!`)
             } else {
                 switchActivePlayer();
                 displayController.setRoundMessage(`Player ${activePlayer.getSign()}'s Turn`)
             }
+
+            if (round === 9) {
+                displayController.setRoundMessage(`It's a Tie!`);
+                gameFinished = true;
+            }
+            
+            round++;
         }
     }
 
