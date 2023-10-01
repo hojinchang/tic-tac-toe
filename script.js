@@ -57,11 +57,7 @@ const gameController = (() => {
 
     const validateMove = (cellIdx) => {
         let validMove;
-        if (gameBoard.getCell(cellIdx) === "") {
-            validMove = true;
-        } else {
-            validMove = false;
-        }
+        gameBoard.getCell(cellIdx) === "" ? validMove = true : validMove = false;
         return validMove;
     }
 
