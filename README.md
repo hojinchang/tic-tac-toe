@@ -21,4 +21,4 @@ Visit the Tic-Tac-Toe webpage [here](https://hojinchang.github.io/tic-tac-toe/).
 
 ## What I Learned
 - Leverage object oriented programming concepts to neatly organize code and functions
-- Factory functions and module patterns
+- JavaScript factory functions and module patterns
